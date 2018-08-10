@@ -15,9 +15,9 @@ client.on('ready', () => {
 client.on('message', async message => {
     if (message.author.bot) return;
     ping.Ping(message, client);
-    if (message.content.startsWith(settings.prefix)){
+   // if (message.content.startsWith(settings.prefix)){ //for Forgotten 
         command.CheckCommand(message, client);
-    }
+   // }
 });
 
 
