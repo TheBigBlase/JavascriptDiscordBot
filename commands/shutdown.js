@@ -12,7 +12,7 @@ module.exports = {
                 process.exit();
             }
             else {
-                message.channel.send("ask for an admin role fam");
+                message.channel.send("ask for an admin role fag");
             }
         }
     }

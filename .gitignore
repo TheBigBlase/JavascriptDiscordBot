@@ -1,4 +1,2 @@
-node_modules
-settings.json
+node_modules/
 .vs
-app.js
