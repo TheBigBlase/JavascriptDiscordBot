@@ -7,7 +7,7 @@ const ping = require('./commands/ping.js')
 
 client.on('ready', () => {
     console.log('I\'m Online ! \nI\'m online ! ');
-    client.channels.get(settings.generalID).send('I\'m online !');
+    client.channels.get(settings.DevPlaceID).send('I\'m online !');
 });
 
 
@@ -15,9 +15,9 @@ client.on('ready', () => {
 client.on('message', async message => {
     if (message.author.bot) return;
     ping.Ping(message, client);
-   // if (message.content.startsWith(settings.prefix)){ //for Forgotten 
-        command.CheckCommand(message, client);
-   // }
+    if (!message.content.startsWith(settings.prefix)) return;
+
+    command.CheckCommand(message, client);
 });
 
 

@@ -3,17 +3,16 @@ const settings = require('../settings.json');
 
 module.exports = {
     Shutdown: async (message, client) => {
-        if (message.content === "fuckoff") {
+        console.log('Fuckoff trigger')
             if (message.author.id == settings.BigID) {
                 await message.channel.send("Bye ! ");
                 console.log('disconnecting...');
-                await client.destroy();
+                await await client.destroy();
                 console.log('Disconnected');
-                process.exit();
             }
             else {
-                message.channel.send("ask for an admin role fag");
+                message.channel.send("ask for an admin role fam");
+                console.log(message.author.username + 'tried to shut me down');
             }
         }
-    }
 }
