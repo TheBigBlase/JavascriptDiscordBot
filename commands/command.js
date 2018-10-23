@@ -20,6 +20,9 @@ module.exports = {
             case "food":
                 await food.Food(message, client, args);
                 break;
+            case "spam":
+                await ping.Spam(message, args);
+                break;
             default:
                 console.log('Check command ended without finding anything');
                 break;
