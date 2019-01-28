@@ -5,7 +5,7 @@ module.exports = {
 
     BigPing: async (message, client) => {
         if (message.isMemberMentioned(client.users.get(settings.BigID))) {
-            if (message.author.id === settings.BigID) {
+            if (message.author.id == settings.BigID) {
                 await message.channel.send("Master, are you as dumb as forgotten ?");
             }
             else{
@@ -20,7 +20,7 @@ module.exports = {
 
     Spam: async (message, args) => {
         console.log("Spam is triggered ");
-        if (message.author.id === settings.BigID) {
+        if (message.author.id == settings.BigID) {
             let target = args[0];
             let times = parseInt(args[1]);
             for (let k = 0; k<times; k++) {
@@ -38,4 +38,4 @@ module.exports = {
             await message.react(message.guild.emojis.get("504340162617016330"));
         }
     }
-};    
+};

@@ -21,6 +21,4 @@ client.on('message', async message => {
     command.CheckCommand(message, client);
 });
 
-
-
 client.login(settings.token);
