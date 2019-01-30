@@ -3,6 +3,7 @@ const settings = require('../settings.json');
 const shutdown = require('./shutdown.js');
 const ping = require('./ping.js');
 const food = require('./image.js');
+const help = require('./help.js');
 
 
 module.exports = {
@@ -21,6 +22,10 @@ module.exports = {
                 break;
             case "spam":
                 await ping.Spam(message, args);
+                break;
+            case "help":
+            case "halp":
+                await help.Help(message);
                 break;
             default:
                 console.log('Check command ended without finding anything');

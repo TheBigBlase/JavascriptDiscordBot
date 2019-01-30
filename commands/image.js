@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const settings = require('../settings.json');
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 
