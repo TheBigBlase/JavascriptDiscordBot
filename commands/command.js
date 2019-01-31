@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const settings = require('../settings.json');
 const shutdown = require('./shutdown.js');
 const ping = require('./ping.js');
-const food = require('./image.js');
+const image = require('./image.js');
 const help = require('./help.js');
 
 
