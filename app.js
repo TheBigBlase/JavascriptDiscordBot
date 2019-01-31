@@ -8,13 +8,12 @@ const ping = require('./commands/ping.js');
 client.on('ready', () => {
     console.log('I\'m Online ! \nI\'m online ! ');
     client.channels.get(settings.DevPlaceID).send('I\'m online !');
-
 });
 
 
 
 client.on('message', async message => {
-    if (message.author.bot) return;
+    if (message.author.bot && !message.author.id == settings.BotID) return;
     ping.BigPing(message, client);
     ping.BotPing(message, client);
     message.content = message.content.toLowerCase();
@@ -28,8 +27,6 @@ client.login(settings.token);
 var stdin = process.openStdin();
 
 stdin.addListener("data", async function(d) {
-    // note:  d is an object, and when converted to a string it will
-    // end with a linefeed.  so we (rather crudely) account for that
-    // with toString() and then trim()
-        await client.channels.get(settings.GeneralID).send(d.toString());
+//read terminal
+        await client.channels.get(settings.DevPlaceID).send(d.toString());
   });

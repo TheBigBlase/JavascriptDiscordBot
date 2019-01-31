@@ -4,6 +4,7 @@ const shutdown = require('./shutdown.js');
 const ping = require('./ping.js');
 const image = require('./image.js');
 const help = require('./help.js');
+const reload = require('./reload.js')
 
 
 module.exports = {
@@ -26,6 +27,9 @@ module.exports = {
             case "help":
             case "halp":
                 await help.Help(message);
+                break;
+            case "reload":
+                await reload.Reload(message,client);
                 break;
             default:
                 console.log('Check command ended without finding anything');

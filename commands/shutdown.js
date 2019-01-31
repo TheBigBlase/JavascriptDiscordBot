@@ -4,7 +4,7 @@ const settings = require('../settings.json');
 module.exports = {
     Shutdown: async (message, client) => {
         console.log('Fuckoff trigger');
-            if (message.author.id == settings.BigID) {
+            if (settings.mods.includes(message.author.id)) {
                 await message.channel.send("Bye ! ");
                 console.log('disconnecting...');
                 await client.destroy();

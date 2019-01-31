@@ -35,16 +35,18 @@ class GoogleImageSearch {
 module.exports = {
     Image: async (message, client, args) => {
         console.log('Image is Triggered');
-        if(args.length==0)return;
-        let search = args.join(' ');
+        if(args.length==0){
+          console.log("Image with no argument, aborded.")
+          await message.channel.send("stop crying and put an argument or read halp")
+          return;
+        }
+        let search = args.join(' ').toString();
         console.log(message.author.username +" asked "+ search);
         message.channel.send("Hey boi ez, plz wait a bit (until the next error)");
         await GoogleImageSearch.searchImage(search).then((res) => {
           console.log(res[0]); // This will return array of image URLs
           message.channel.send('Here is what I have found : ', new Discord.Attachment(res[0],"Picture.png"));
 }).catch((err)=> {console.error(err)});
-
-    //await message.channel.send('Here is what I have found : ', new Discord.Attachment(res[0],"Picture:").setFile(res[0]));
 
         console.log('image ended');
       }

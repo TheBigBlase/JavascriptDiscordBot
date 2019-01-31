@@ -5,13 +5,13 @@ module.exports = {
 
     BigPing: async (message, client) => {
         if (message.isMemberMentioned(client.users.get(settings.BigID))) {
-            if (message.author.id == settings.BigID) {
-                await message.channel.send("Master, are you as dumb as forgotten ?");
+            if (message.author.id == settings.mods) {
+                await message.channel.send("u dumbass");
             }
             else{
                 console.log(message.author.username + ' pinged you');
                 await message.react("🖕");
-                await message.reply("Stop pinging my lord, u dumb");
+                await message.reply("Stop pinging that dumbass, he does not even deserve that much attention");
                 await message.react(message.guild.emojis.get("504340162617016330"));
             }
 
@@ -20,7 +20,7 @@ module.exports = {
 
     Spam: async (message, args) => {
         console.log("Spam is triggered ");
-        if (message.author.id == settings.BigID) {
+        if (settings.mods.includes(message.author.id) && !message.author.id==settings.ForgottenID) {
             let target = args[0];
             let times = parseInt(args[1]);
             for (let k = 0; k<times; k++) {
@@ -28,8 +28,13 @@ module.exports = {
             }
             console.log("Spam ended ");
         }
-        else {
+        else if(!settings.mods.includes(message.author.id)){
             message.channel.send("Ask for admin role, fam");
+            console.log("Non admin spam");
+        }
+        else{
+          message.channel.send("Fuckoff forgoten");
+          console.log("Forgotten tried to spam");
         }
     },
 
