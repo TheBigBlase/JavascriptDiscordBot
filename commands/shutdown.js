@@ -9,6 +9,7 @@ module.exports = {
                 console.log('disconnecting...');
                 await client.destroy();
                 console.log('Disconnected');
+                await process.exit();
             }
             else {
                 await message.channel.send("ask for an admin role fam");

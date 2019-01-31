@@ -34,7 +34,7 @@ class GoogleImageSearch {
 
 module.exports = {
     Image: async (message, client, args) => {
-        console.log('Food is Triggered');
+        console.log('Image is Triggered');
         if(args.length==0)return;
         let search = args.join(' ');
         console.log(message.author.username +" asked "+ search);
@@ -46,6 +46,6 @@ module.exports = {
 
     //await message.channel.send('Here is what I have found : ', new Discord.Attachment(res[0],"Picture:").setFile(res[0]));
 
-        console.log('Food ended');
+        console.log('image ended');
       }
 }
