@@ -1,0 +1,12 @@
+Wassup !
+all argument in <...> are required, and ur supposed to use it if you want the fonction to work,
+all option in [...] are optionnal, beacause they are options.
+help : show this help. I wonder how you found this help to read this.
+
+image <name of target> : search the first image on google for the string you propsed.
+
+spam <username> [number of ping] : trigger the target. Need to be admin tho.
+
+fuckoff : bye !
+
+oh btw I react if you ping me or that dumbass of BiGbLaSe
