@@ -13,7 +13,7 @@ client.on('ready', () => {
 
 
 client.on('message', async message => {
-    if (message.author.bot && !message.author.id == settings.BotID) return;
+    if (message.author.bot && !message.author.id === settings.BotID) return;
     ping.BigPing(message, client);
     ping.BotPing(message, client);
     message.content = message.content.toLowerCase();
@@ -28,5 +28,5 @@ var stdin = process.openStdin();
 
 stdin.addListener("data", async function(d) {
 //read terminal
-        await client.channels.get(settings.DevPlaceID).send(d.toString());
+    await client.channels.get(settings.GeneralID).send(d.toString());
   });

@@ -6,7 +6,7 @@ module.exports= {
     console.log("restart triggered");
     await message.channel.send("I\'ll restart");
     await client.destroy().then(()=> client.login(settings.token));
-    await message.channel.send("I restarted");
+    await message.channel.send("Did I missed you ? ");
     console.log("I restarted. All is fine for now.");
   }
 };
