@@ -29,11 +29,11 @@ module.exports = {
                 await help.Help(message);
                 break;
             case "reload":
-                await reload.Reload(message,client);
+                await reload.Reload(message, client);
                 break;
             default:
                 console.log('Check command ended without finding anything');
                 break;
         }
     }
-}
+};
