@@ -3,10 +3,12 @@ const client = new Discord.Client();
 const settings = require('./settings.json');
 const command = require('./commands/command.js');
 const ping = require('./commands/ping.js');
+const stdin = process.openStdin();
+const chalk = require('chalk')
 
 
 client.on('ready', () => {
-    console.log('I\'m Online ! \nI\'m online ! ');
+    console.log(chalk.green('I\'m Online ! \nI\'m online ! '));
     client.channels.get(settings.DevPlaceID).send('I\'m online !');
 });
 
@@ -24,9 +26,8 @@ client.on('message', async message => {
 
 client.login(settings.token);
 
-var stdin = process.openStdin();
+
 
 stdin.addListener("data", async function(d) {
-//read terminal
-    await client.channels.get(settings.GeneralID).send(d.toString());
+command.CheckCommandTerminal(d.toString().slice(0,-1), client);// client is empty
   });

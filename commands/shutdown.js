@@ -1,5 +1,7 @@
 ﻿const Discord = require('discord.js');
 const settings = require('../settings.json');
+const chalk = require('chalk')
+
 
 module.exports = {
     Shutdown: async (message, client) => {
@@ -8,12 +10,17 @@ module.exports = {
             await message.channel.send("Bye ! ");
             console.log('disconnecting...');
             await client.destroy();
-            console.log('Disconnected');
+            console.log(chalk.red('Disconnected'));
             await process.exit();
         }
         else {
             await message.channel.send("ask for an admin role fam");
-            console.log(message.author.username + 'tried to shut me down');
+            console.log(chalk.red(message.author.username + 'tried to shut me down'));
         }
+    },
+    ShutdownTerminal: async (message, client)=> {
+      console.log('disconnecting...');
+      console.log(chalk.red('Disconnected'));
+      await process.exit();
     }
 };
