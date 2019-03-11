@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
+const chalk = require ('chalk');
 
 class GoogleImageSearch {
 
@@ -34,15 +35,24 @@ class GoogleImageSearch {
 
 module.exports = {
     Image: async (message, client, args) => {
-        console.log('Image is Triggered');
+      try{
         if (args.length === 0) {
-            console.log("Image with no argument, aborded.")
-            await message.channel.send("stop crying and put an argument or read halp")
+            console.log("Image with no argument, aborded.");
+            await message.channel.send("stop crying and put an argument or read halp");
             return;
         }
-        let search = args.join(' ').toString();
+        if (args[0].startsWith("<@")) {
+           await message.channel.send("FFS I SAID YOU CANT DO THAT, STAHP");
+           console.log(chalk.red(message.author.username)+ chalk.blue(" asked for an username in an image"));
+           await message.react("🖕");
+           return;
+         }
         console.log(message.author.username + " asked " + search);
-        message.channel.send("Hey boi ez, plz wait a bit (until the next error)");
+        await message.channel.send("Hey boi ez, plz wait a bit (until the next error)");
+      }
+      catch(err){
+      console.error(chalk.bgRed("Error in Image : "), err);
+    }
         await GoogleImageSearch.searchImage(search).then((res) => {
             console.log(res[0]); // This will return array of image URLs
             message.channel.send('Here is what I have found : ', new Discord.Attachment(res[0], "Picture.png"));

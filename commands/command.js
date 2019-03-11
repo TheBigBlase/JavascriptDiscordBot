@@ -4,7 +4,8 @@ const shutdown = require('./shutdown.js');
 const ping = require('./ping.js');
 const image = require('./image.js');
 const help = require('./help.js');
-const reload = require('./reload.js')
+const reload = require('./reload.js');
+const say = require('./say.js');
 const chalk = require('chalk')
 
 
@@ -40,13 +41,19 @@ module.exports = {
     },
 
     CheckCommandTerminal: async (message,client) => {
-      console.log('message =>' + message+".");
-       switch (message) { // to do : 2 switch 1 for reading terminal
+      //console.log('message =>' + message+".");
+      let args = [];
+        args = message.trim().split(' ').toString();
+      const calledCommand = args.shift().toLowerCase();
+       switch (calledCommand) { // to do : 2 switch 1 for reading terminal
           case "fuckoff":
               await shutdown.ShutdownTerminal(message, client);
               break;
           case "reload":
-              await reload.ReloadTerminal(message, client);
+              await reload.ReloadTerminal(client, args);
+              break;
+          case "say":
+              await say.SayTerminal(message, client, args);
               break;
           default:
               await console.log(chalk.bgYellow('Check command ended without finding anything'));

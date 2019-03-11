@@ -1,5 +1,6 @@
 ﻿const Discord = require('discord.js');
 const settings = require('../settings.json');
+const chalk = require('chalk');
 
 module.exports = {
 
@@ -9,7 +10,7 @@ module.exports = {
                 await message.channel.send("u dumbass");
             }
             else{
-                console.log(message.author.username + ' pinged you');
+                console.log(chalk.blue(message.author.username) + ' pinged you');
                 await message.react("🖕");
                 await message.reply("Stop pinging that dumbass, he does not even deserve that much attention");
                 await message.react(message.guild.emojis.get("504340162617016330"));
@@ -19,7 +20,8 @@ module.exports = {
     },
 
     Spam: async (message, args) => {
-        console.log("Spam is triggered ");
+      try
+      {  console.log("Spam is triggered ");
         if (settings.mods.includes(message.author.id) && !message.author.id==settings.ForgottenID) {
             let target = args[0];
             let times = parseInt(args[1]);
@@ -36,7 +38,11 @@ module.exports = {
           message.channel.send("Fuckoff forgoten");
           console.log("Forgotten tried to spam");
         }
-    },
+      }
+        catch(err) {
+          console.error(chalk.bgRed("Error in SayTerminal : "),err);
+    }
+  },
 
     BotPing: async (message, client) => {
         if (message.isMemberMentioned(client.users.get(settings.BotID))) {

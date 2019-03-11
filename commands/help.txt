@@ -1,6 +1,7 @@
 Wassup !
 all argument in <...> are required, and ur supposed to use it if you want the fonction to work,
 all option in [...] are optionnal, beacause they are options.
+
 help : show this help. I wonder how you found this help to read this.
 
 image <name of target> : search the first image on google for the string you propsed.

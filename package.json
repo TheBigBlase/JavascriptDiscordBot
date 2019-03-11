@@ -12,6 +12,7 @@
     "babel-cli": "^6.26.0",
     "cheerio": "^1.0.0-rc.2",
     "discord.js": "^11.3.2",
+    "enmap": "^4.8.1",
     "fs": "0.0.1-security",
     "node-fetch": "^2.3.0",
     "node-google-image-search": "^1.0.3",

@@ -1,7 +1,6 @@
 ﻿const Discord = require('discord.js');
 const settings = require('../settings.json');
-const chalk = require('chalk')
-
+const chalk = require('chalk');
 
 module.exports = {
     Shutdown: async (message, client) => {
@@ -20,7 +19,9 @@ module.exports = {
     },
     ShutdownTerminal: async (message, client)=> {
       console.log('disconnecting...');
+      await client.destroy();
       console.log(chalk.red('Disconnected'));
-      await process.exit();
+      process.exit();
+
     }
 };
