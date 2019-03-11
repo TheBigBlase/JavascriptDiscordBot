@@ -18,7 +18,7 @@ SayTerminal: async (message, client, args) => {
         return;
         break;
       }
-    await client.channels.get(place).send(args.join(" "));
+    await client.channels.get(place).send(args.join(""));
     }
     catch(err){
       console.error(chalk.bgRed("Error in SayTerminal : "),err);
