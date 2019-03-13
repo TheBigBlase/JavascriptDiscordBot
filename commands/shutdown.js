@@ -3,7 +3,7 @@ const settings = require('../settings.json');
 const chalk = require('chalk');
 
 exports.run = async (message,client,args,terminal) => {
-{
+
     if(terminal){
       await client.destroy();
       await console.log(chalk.cyan('Disconnected'));
