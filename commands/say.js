@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const settings = require('../settings.json');
 const chalk = require('chalk');
 
-exports.run = async (message, client, args, terminal) => {
+exports.run = async (message, client, args, terminal,unusedThing) => {
   try{
     if (!terminal) return;
     let place = args.shift();
@@ -18,9 +18,9 @@ exports.run = async (message, client, args, terminal) => {
         return;
         break;
       }
-    await client.channels.get(place).send(args.join(""));
+      await client.channels.get(place).send(args.join(" "));
     }
     catch(err){
-      console.error(chalk.bgRed("Error in SayTerminal : "),err);
+      console.error(chalk.bgRed("Error in Say : "),err);
     }
 };

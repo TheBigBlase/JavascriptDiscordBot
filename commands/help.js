@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const fs = require('fs');
 const chalk = require('chalk');
 
-exports.run  = async (message,client,args,terminal) => {
+exports.run  = async (message,client,args,terminal,clientCommands) => {
 {
         if(terminal) return;
         console.log(chalk.magenta(message.author.username + "asked for help"));

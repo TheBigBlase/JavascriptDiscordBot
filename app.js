@@ -48,7 +48,7 @@ client.on('message', async message => {
 
     if(!client.commands.get(calledCommand)) return;
 
-    client.commands.get(calledCommand).run(message, client, args, terminal);
+    client.commands.get(calledCommand).run(message, client, args, terminal, client.commands);
 });
 
 client.login(settings.token);
@@ -65,7 +65,7 @@ stdin.addListener("data", async function(d) {
     const calledCommand = args.shift();
 
     if(!client.commands.get(calledCommand)) return console.log("No such command");
-    client.commands.get(calledCommand).run(d, client.commands, args, terminal);
+    client.commands.get(calledCommand).run(d, client, args, terminal,client.commands);
   }
   catch(err){
     console.error(chalk.red("Error while reading terminal : ",err));

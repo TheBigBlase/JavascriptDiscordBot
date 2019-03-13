@@ -2,7 +2,7 @@
 const settings = require('../settings.json');
 const chalk = require('chalk');
 
-exports.run = async (message,client,args,terminal) => {
+exports.run = async (message,client,args,terminal,unusedThing) => {
 
     if(terminal){
       await client.destroy();
@@ -19,5 +19,4 @@ exports.run = async (message,client,args,terminal) => {
       await message.channel.send("ask for an admin role fam");
       console.log(chalk.bgYellow(message.author.username + 'tried to shut me down'));
     }
-
 };

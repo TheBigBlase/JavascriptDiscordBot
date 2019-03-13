@@ -33,9 +33,9 @@ class GoogleImageSearch {
 }
 
 
-exports.run = async (message, client, args, terminal) =>{
+exports.run = async (message, client, args, terminal, unusedThing) =>{
       try{
-        if (terminal)return console.log(chalk.yellow("No image while in terminal"))
+        if (terminal)return console.log(chalk.yellow("No image while in terminal"));
         if (args.length === 0) {
             console.log(chalk.yellow("Image with no argument, aborded."));
             await message.channel.send("stop crying and put an argument or read halp");
