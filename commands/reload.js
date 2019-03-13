@@ -1,31 +1,42 @@
 const Discord = require('discord.js');
 const settings = require('../settings.json');
 const chalk = require('chalk');
-const Enmap = require("enmap");
+//const resolve = require ('resolve');
+//const fs = require('fs');
 
-module.exports= {
-  Reload: async (message, client) => {
-    console.log("restart triggered");
-      if (!settings.mods.includes(message.author.id)) return;
-    await message.channel.send("I\'ll restart");
-    await client.destroy().then(()=> client.login(settings.token));
-    await message.channel.send("Did I missed you ? ");
-    console.log(chalk.green("I restarted"));
-  },
+exports.run = async (message,client,args,terminal) => {
 
-
-  ReloadTerminal: async (client, args) => {
     try{
-      if(args.length!=1) return console.log(chalk.red(`Need 1 argument. Number given :${args.lenght}`));
+      if (terminal){
+          if(args.isEmpty|| args.lenght >1) return console.log(chalk.red("no argument"));
+        let commandName = args[0];
+          if (!client.has(commandName)) return console.log(chalk.red("No such command to reload"));
+        console.log(chalk.blue('checking file : '+ commandName));
+
+        await delete require.cache[require.resolve(`./${commandName}.js`)];
+        await client.delete(commandName);
+        const props = require(`./${commandName}.js`);
+        await client.set(commandName, props);
+
+        console.log(chalk.green("Safly reloaded"));
+      }
+
+      else{
+        if(args.isEmpty|| args.lenght >1) return message.channel.send("Send me exactly one argument (you are not smart)");
       let commandName = args[0];
-      delete require.cache[require.resolve(`./${commandName}.js`)];
-      client.commands.delete(commandName);
-      let props = require(`./${commandName}.js`);
-      client.commands.set(commandName, props);
-      console.log(chalk.green("Reloaded"));
-    }
-    catch(err){
-      console.error(chalk.red("Error in ReloadTerminal : ", err))
+        if (!client.has(commandName)) return message.channel.send("No such file to reload");
+      console.log(chalk.blue('checking file : '+ commandName));
+
+      await delete require.cache[require.resolve(`./${commandName}.js`)];
+      await client.commands.delete(commandName);
+      const props = require(`./${commandName}.js`);
+      await client.commands.set(commandName, props);
+
+      console.log(chalk.green("Safly reloaded"));
+      await client.channels.get(settings.DevPlaceID).send(`I reloaded ${commandName}`);
     }
   }
-};
+  catch(err){
+    console.error(chalk.bgRed("Error in Reload : ", err));
+  }
+  };

@@ -33,31 +33,30 @@ class GoogleImageSearch {
 }
 
 
-module.exports = {
-    Image: async (message, client, args) => {
+exports.run = async (message, client, args, terminal) =>{
       try{
+        if (terminal)return console.log(chalk.yellow("No image while in terminal"))
         if (args.length === 0) {
-            console.log("Image with no argument, aborded.");
+            console.log(chalk.yellow("Image with no argument, aborded."));
             await message.channel.send("stop crying and put an argument or read halp");
             return;
         }
-        if (args[0].startsWith("<@")) {
+        search = args.toString();
+        if (search.includes("<@")) {
            await message.channel.send("FFS I SAID YOU CANT DO THAT, STAHP");
            console.log(chalk.red(message.author.username)+ chalk.blue(" asked for an username in an image"));
            await message.react("🖕");
            return;
          }
-        console.log(message.author.username + " asked " + search);
+        console.log(chalk.blue(message.author.username + " asked ") + search);
         await message.channel.send("Hey boi ez, plz wait a bit (until the next error)");
       }
       catch(err){
       console.error(chalk.bgRed("Error in Image : "), err);
     }
-        await GoogleImageSearch.searchImage(search).then((res) => {
+        await GoogleImageSearch.searchImage(args).then((res) => {
             console.log(res[0]); // This will return array of image URLs
             message.channel.send('Here is what I have found : ', new Discord.Attachment(res[0], "Picture.png"));
         }).catch((err) => { console.error(err) });
-
-        console.log('image ended');
     }
 };

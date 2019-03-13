@@ -3,7 +3,6 @@ const settings = require('../settings.json');
 const chalk = require('chalk');
 
 module.exports = {
-
     BigPing: async (message, client) => {
         if (message.isMemberMentioned(client.users.get(settings.BigID))) {
             if (message.author.id == settings.mods) {

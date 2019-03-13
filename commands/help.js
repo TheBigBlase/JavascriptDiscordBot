@@ -1,9 +1,11 @@
 const Discord = require('discord.js');
 const fs = require('fs');
+const chalk = require('chalk');
 
-module.exports = {
-    Help: async (message) => {
-        console.log("Help is triggered");
+exports.run  = async (message,client,args,terminal) => {
+{
+        if(terminal) return;
+        console.log(chalk.magenta(message.author.username + "asked for help"));
         var help = fs.readFileSync("./commands/help.txt", { encoding: 'utf-8', flag: 'r' });
         await message.channel.send(help);
         console.log('help ended');

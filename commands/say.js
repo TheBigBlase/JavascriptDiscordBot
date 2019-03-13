@@ -2,9 +2,9 @@ const Discord = require('discord.js');
 const settings = require('../settings.json');
 const chalk = require('chalk');
 
-module.exports = {
-SayTerminal: async (message, client, args) => {
+exports.run = async (message, client, args, terminal) => {
   try{
+    if (!terminal) return;
     let place = args.shift();
     switch(place){
       case "dev":
@@ -23,5 +23,4 @@ SayTerminal: async (message, client, args) => {
     catch(err){
       console.error(chalk.bgRed("Error in SayTerminal : "),err);
     }
-  }
-}
+};
