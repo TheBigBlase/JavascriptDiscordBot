@@ -19,6 +19,7 @@ exports.run = async (message, client, args, terminal,unusedThing) => {
         break;
       }
       await client.channels.get(place).send(args.join(" "));
+      console.log(chalk.green("Message successfully sent"));
     }
     catch(err){
       console.error(chalk.bgRed("Error in Say : "),err);
