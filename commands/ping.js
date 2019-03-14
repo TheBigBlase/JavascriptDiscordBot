@@ -18,31 +18,6 @@ module.exports = {
         }
     },
 
-    Spam: async (message, args) => {
-      try
-      {  console.log("Spam is triggered ");
-        if (settings.mods.includes(message.author.id) && !message.author.id==settings.ForgottenID) {
-            let target = args[0];
-            let times = parseInt(args[1]);
-            for (let k = 0; k<times; k++) {
-                await message.channel.send(`${target}, Are you happy now ? `);
-            }
-            console.log("Spam ended ");
-        }
-        else if(!settings.mods.includes(message.author.id)){
-            message.channel.send("Ask for admin role, fam");
-            console.log("Non admin spam");
-        }
-        else{
-          message.channel.send("Fuckoff forgoten");
-          console.log("Forgotten tried to spam");
-        }
-      }
-        catch(err) {
-          console.error(chalk.bgRed("Error in SayTerminal : "),err);
-    }
-  },
-
     BotPing: async (message, client) => {
         if (message.isMemberMentioned(client.users.get(settings.BotID))) {
             await message.react(message.guild.emojis.get("504340162617016330"));

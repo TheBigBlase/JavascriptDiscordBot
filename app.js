@@ -25,6 +25,8 @@ const init = async () =>{
   });
   console.log(chalk.green("Loaded all commands"));
 
+  client.login(settings.token);
+
     client.on('ready', () => {
         console.log(chalk.cyan('Ready to kick some ass'));
         client.channels.get(settings.DevPlaceID).send('I\'m online !');
@@ -36,22 +38,23 @@ const init = async () =>{
 
 
 client.on('message', async message => {
+    let nothing;
     let terminal = false;
-    if (message.author.bot && !message.author.id === settings.BotID) return;
+    if (message.author.bot) return;
     ping.BigPing(message, client);
     ping.BotPing(message, client);
-    if (!message.content.startsWith(settings.prefix)) return;
 
-    message.content = message.content.toLowerCase();
-    args = message.content.slice(settings.prefix.length).trim().split(/ +/g);
-    const calledCommand = args.shift();
+        message.content = message.content.toLowerCase();
+        args = message.content.slice(settings.prefix.length).trim().split(/ +/g);
+        const calledCommand = args.shift();
+
+    if (!message.content.startsWith(settings.prefix)) return;
 
     if(!client.commands.get(calledCommand)) return;
 
-    client.commands.get(calledCommand).run(message, client, args, terminal, client.commands);
+    client.commands.get(calledCommand).run(message, client, args, terminal, nothing);
 });
 
-client.login(settings.token);
 
 
 

@@ -57,5 +57,8 @@ exports.run = async (message, client, args, terminal, unusedThing) =>{
         await GoogleImageSearch.searchImage(args).then((res) => {
             console.log(res[0]); // This will return array of image URLs
             message.channel.send('Here is what I have found : ', new Discord.Attachment(res[0], "Picture.png"));
-        }).catch((err) => { console.error(err) });
+        }).catch((err) => {
+           console.error(err);
+           message.channel.send("Error, how surprising");
+          });
     };
