@@ -1,20 +1,32 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+
 const settings = require('./settings.json');
-//const command = require('./commands/command.js');
 const ping = require('./commands/ping.js');
 const stdin = process.openStdin();
 const chalk = require('chalk');
-
-const {promisify} = require('util');
-
+const {promisify, addListener} = require('util');
 const readdir = promisify(require('fs').readdir);
-const Enmap = require('enmap');
 
+const Enmap = require('enmap');
 client.commands = new Enmap();
 
+let oldClientPing=client.ping;
 
-const init = async () =>{
+
+const updatePresence = ()=>{
+  clientPing = client.pings[0];
+  client.user.setPresence({
+    game: {
+      name: `Ping : ${clientPing}`,
+      type: 'WATCHING'
+    }
+  })
+}
+
+
+const init = async() =>{
+  try{
   const command = await readdir('./commands');
   command.forEach(file=>{
     if(!file.endsWith(".js")||file==="ping.js") return;
@@ -24,14 +36,30 @@ const init = async () =>{
     console.log(chalk.blue(`Attempting to load ${commandName}`));
   });
   console.log(chalk.green("Loaded all commands"));
-
   client.login(settings.token);
+  }
+  catch(err){
+      console.log(chalk.bgRed("error in init : ",err));
+    }
+};
 
-    client.on('ready', () => {
+
+
+    client.on('ready', async() => {
+      try{
         console.log(chalk.cyan('Ready to kick some ass'));
         client.channels.get(settings.DevPlaceID).send('I\'m online !');
-  });
-  }
+        updatePresence();
+
+        await setInterval(() => {
+          updatePresence();
+
+        }, 30000);
+    }
+      catch(err) {
+      console.log(chalk.bgRed("Error in app.js : Init : ", err));
+    }});
+
 
 
 
@@ -54,6 +82,8 @@ client.on('message', async message => {
 
     client.commands.get(calledCommand).run(message, client, args, terminal, nothing);
 });
+
+
 
 
 

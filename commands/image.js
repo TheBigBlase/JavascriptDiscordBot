@@ -1,3 +1,4 @@
+
 const Discord = require('discord.js');
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
@@ -61,4 +62,4 @@ exports.run = async (message, client, args, terminal, unusedThing) =>{
            console.error(err);
            message.channel.send("Error, how surprising");
           });
-    };
+};
