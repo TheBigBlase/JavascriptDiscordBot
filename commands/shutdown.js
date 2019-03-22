@@ -5,8 +5,9 @@ const chalk = require('chalk');
 exports.run = async (message,client,args,terminal,unusedThing) => {
 
     if(terminal){
+      await client.channels.get(settings.DevPlaceID).send("Shutdown triggered by terminal");
       await client.destroy();
-      await console.log(chalk.cyan('Disconnected'));
+      console.log(chalk.cyan('Disconnected'));
       process.exit();
     }
     else if (!terminal && settings.mods.includes(message.author.id)) {

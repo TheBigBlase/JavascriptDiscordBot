@@ -14,9 +14,9 @@ client.commands = new Enmap();
 let oldClientPing=client.ping;
 
 
-const updatePresence = ()=>{
+const updatePresence = async ()=>{
   clientPing = client.pings[0];
-  client.user.setPresence({
+  await client.user.setPresence({
     game: {
       name: `Ping : ${clientPing}`,
       type: 'WATCHING'
@@ -25,9 +25,9 @@ const updatePresence = ()=>{
 }
 
 
-const init = async() =>{
+const init = async () =>{
   try{
-  const command = await readdir('./commands');
+  const command =  await readdir('./commands');
   command.forEach(file=>{
     if(!file.endsWith(".js")||file==="ping.js") return;
     let props = require(`./commands/${file}`);
@@ -54,7 +54,7 @@ const init = async() =>{
         await setInterval(() => {
           updatePresence();
 
-        }, 30000);
+        }, 40000);
     }
       catch(err) {
       console.log(chalk.bgRed("Error in app.js : Init : ", err));
@@ -97,7 +97,7 @@ stdin.addListener("data", async function(d) {
     args = d.trim().split(' ');
     const calledCommand = args.shift();
 
-    if(!client.commands.get(calledCommand)) return console.log("No such command");
+    if(!client.commands.get(calledCommand)) return console.log(chalk.yellow("No such command"));
     client.commands.get(calledCommand).run(d, client, args, terminal,client.commands);
   }
   catch(err){

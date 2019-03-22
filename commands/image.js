@@ -28,7 +28,7 @@ class GoogleImageSearch {
                 $(img).data('src')
             ).toArray();
         } catch (err) {
-            console.error(`Error when try get images for query -> ${query}, error -> ${err}`)
+            console.error(chalk.bgRed(`Error when try get images for query -> ${query}, error -> ${err}`));
         }
     }
 }
@@ -59,7 +59,7 @@ exports.run = async (message, client, args, terminal, unusedThing) =>{
             console.log(res[0]); // This will return array of image URLs
             message.channel.send('Here is what I have found : ', new Discord.Attachment(res[0], "Picture.png"));
         }).catch((err) => {
-           console.error(err);
+           console.error(chalk.bgRed(err));
            message.channel.send("Error, how surprising");
           });
 };
