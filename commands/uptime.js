@@ -12,7 +12,7 @@ exports.run = async (message, client, args, terminal, clientCommands) => {
     let seconds = Math.floor(totalSeconds % 60);
 
       if(!terminal){
-        await message.channel.send(`${days} days, ${hours} hours, minutes ${minutes} and ${seconds} seconds since last error.`);
+        await message.channel.send(`${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds since last error.`);
       }
       else{
         console.log(chalk.magenta(`I've been online for ${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`));

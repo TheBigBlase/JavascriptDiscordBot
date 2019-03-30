@@ -1,4 +1,3 @@
-
 const Discord = require('discord.js');
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
@@ -49,7 +48,7 @@ exports.run = async (message, client, args, terminal, unusedThing) =>{
            await message.react("🖕");
            return;
          }
-        console.log(chalk.blue(message.author.username + " asked ") + search);
+        console.log(chalk.blue(message.author.username + " asked image ") + args.join(' '));
         await message.channel.send("Hey boi ez, plz wait a bit (until the next error)");
       }
       catch(err){

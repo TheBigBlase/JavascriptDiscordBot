@@ -19,10 +19,11 @@ const updatePresence = async ()=>{
   await client.user.setPresence({
     game: {
       name: `Ping : ${clientPing}`,
-      type: 'WATCHING'
+      type: 'STREAMING',
+      url:"https://www.twitch.tv/samplename0"
     }
-  })
-}
+  });
+};
 
 
 const init = async () =>{
@@ -47,7 +48,7 @@ const init = async () =>{
 
     client.on('ready', async() => {
       try{
-        console.log(chalk.cyan('Ready to kick some ass'));
+        console.log(chalk.cyan("It's alive ! "));
         client.channels.get(settings.DevPlaceID).send('I\'m online !');
         updatePresence();
 
