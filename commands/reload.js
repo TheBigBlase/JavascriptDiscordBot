@@ -12,7 +12,7 @@ exports.run = async (message,client,args,terminal,clientCommands) => {
           if(args.isEmpty|| args.lenght >1) return console.log(chalk.red("no argument"));
         let commandName = args[0];
 
-        await CheckModule(commandName);
+        await CheckModule(commandName,(err) => {return;});
 
 
         console.log(chalk.blue('checking file : '+ commandName));
@@ -55,7 +55,7 @@ async function CheckModule(commandName){
           await delete require.cache[require.resolve(`./${commandName}Copy.js`)];
           console.log(chalk.green("Unloaded file copy "));
           await fs.unlink(`./commands/${commandName}Copy.js`, err=>{ //This is the proof that windows sucks. Unlink only delete in linux.
-            console.error(chalk.bgRed("Error : ", err));
+            if (err) return console.error(chalk.bgRed("Error : ", err));
           });
           console.log(chalk.green("deleted copy file"));
     }
