@@ -8,11 +8,13 @@ exports.run = async (message,client,args,terminal,clientCommands) => {
 
     try{
       if (terminal){
-
           if(args.isEmpty|| args.lenght >1) return console.log(chalk.red("no argument"));
         let commandName = args[0];
           if (!clientCommands.has(commandName)) return console.log(chalk.red("No such command to reload"));
+
         console.log(chalk.blue('checking file : '+ commandName));
+//
+
         await delete require.cache[require.resolve(`./${commandName}.js`)];
         await clientCommands.delete(commandName);
         const props = require(`./${commandName}.js`);
@@ -24,7 +26,7 @@ exports.run = async (message,client,args,terminal,clientCommands) => {
         if(args.isEmpty|| args.lenght >1) return message.channel.send("Send me exactly one argument (you are not smart)");
       let commandName = args[0];
         if (!client.commands.has(commandName)) return message.channel.send("No such file to reload");
-      console.log(chalk.blue('checking file : '+ commandName));
+      console.log(chalk.blue('checking file : '+ commandNamesi));
       await delete require.cache[require.resolve(`./${commandName}.js`)];
       await client.commands.delete(commandName);
       const props = require(`./${commandName}.js`);
