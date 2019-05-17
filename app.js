@@ -10,20 +10,11 @@ const readdir = promisify(require('fs').readdir);
 
 const Enmap = require('enmap');
 client.commands = new Enmap();
+client.events = new Enmap();
+client.settings = new Enmap({name: "settings"});
 
 let oldClientPing=client.ping;
 
-
-const updatePresence = async ()=>{
-  clientPing = client.pings[0];
-  await client.user.setPresence({
-    game: {
-      name: `Ping : ${clientPing}`,
-      type: 'STREAMING',
-      url:"https://www.twitch.tv/samplename0"
-    }
-  });
-};
 
 
 const init = async () =>{
@@ -34,9 +25,22 @@ const init = async () =>{
     let props = require(`./commands/${file}`);
     let commandName = file.split(".")[0];
     client.commands.set(commandName, props);
-    console.log(chalk.blue(`Attempting to load ${commandName}`));
+    console.log(chalk.blue(`Attempting to load command ${commandName}`));
   });
   console.log(chalk.green("Loaded all commands"));
+
+  const events = await readdir('./events');
+  events.forEach(file=>{
+    if(!file.endsWith(".js")) return;
+    let event = require(`./events/${file}`);
+    let eventName = file.split(".")[0];
+    client.events.set(eventName, event);
+    console.log(chalk.blue(`Attempting to load event ${eventName}`));
+    client.on(eventName, event.bind(null, client)); // not mine xD
+  });
+
+  console.log(chalk.green("Loaded all events"));
+
   client.login(settings.token);
   }
   catch(err){
@@ -50,12 +54,6 @@ const init = async () =>{
       try{
         console.log(chalk.cyan("It's alive ! "));
         client.channels.get(settings.DevPlaceID).send('I\'m online !');
-        updatePresence();
-
-        await setInterval(() => {
-          updatePresence();
-
-        }, 40000);
     }
       catch(err) {
       console.log(chalk.bgRed("Error in app.js : Init : ", err));
@@ -83,7 +81,6 @@ client.on('message', async message => {
 
     client.commands.get(calledCommand).run(message, client, args, terminal, nothing);
 });
-
 
 
 

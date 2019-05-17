@@ -4,7 +4,7 @@ const chalk = require('chalk');
 
 exports.run = async (message, client, args, terminal,unusedThing) => {
   try{
-    if (!terminal) return;
+    if (!terminal) return ;
     let place = args.shift();
     switch(place){
       case "dev":
