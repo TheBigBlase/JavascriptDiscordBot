@@ -14,7 +14,6 @@ module.exports = {
                 await message.reply("Stop pinging that dumbass, he does not even deserve that much attention");
                 await message.react(message.guild.emojis.get("504340162617016330"));
             }
-
         }
     },
 

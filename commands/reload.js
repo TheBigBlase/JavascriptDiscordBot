@@ -2,45 +2,30 @@ const Discord = require('discord.js');
 const settings = require('../settings.json');
 const chalk = require('chalk');
 const fs = require('fs');
-//const resolve = require ('resolve');
 
-exports.run = async (message,client,args,terminal,clientCommands) => {
+exports.run = async (message,client,args,terminal) => {
 
-    try{
-      if (terminal){
-          if(args.isEmpty|| args.lenght >1) return console.log(chalk.red("no argument"));
-        let commandName = args[0];
-
-        await CheckModule(commandName,client,(err) => {return;});
+  //  try{
+  if(args.isEmpty|| args.lenght >1) return console.log(chalk.red("no argument"));
+  let commandName = args[0];
 
 
-        console.log(chalk.blue('checking file : '+ commandName));
-//
+    if(!terminal){
 
-        await delete require.cache[require.resolve(`./${commandName}.js`)];
-        await clientCommands.delete(commandName);
-        const props = require(`./${commandName}.js`);
-        await clientCommands.set(commandName, props);
-        console.log(chalk.green("Safly reloaded"));
-      }
+        if (!client.commands.has(commandName)&& !client.events.has(commandName))
+          return message.channel.send("No such file to reload");
 
-      else{
-        if(args.isEmpty|| args.lenght >1) return message.channel.send("Send me exactly one argument (you are not smart)");
-      let commandName = args[0];
-        if (!client.commands.has(commandName)) return message.channel.send("No such file to reload");
-      console.log(chalk.blue('checking file : '+ commandName));
-      await delete require.cache[require.resolve(`./${commandName}.js`)];
-      await client.commands.delete(commandName);
-      const props = require(`./${commandName}.js`);
-      await client.commands.set(commandName, props);
-      console.log(chalk.green("Safly reloaded"));
-      await message.channel.send(`I reloaded ${commandName}`)
+        await CheckModule(commandName,client,(err) => {return console.error(chalk.bgRed("Error in CheckModule", err));;});
+        await message.channel.send(`I reloaded ${commandName}`)
     }
+
+
+    else {
+      await CheckModule(commandName,client,(err) => {return console.error(chalk.bgRed("Error in CheckModule", err));;});
     }
-  catch(err){
-    console.error(chalk.bgRed("Error in Reload : ", err));
-  }
   };
+
+
 
 
 
@@ -59,6 +44,14 @@ async function CheckModule(commandName, client){
           await fs.unlink(`./commands/${commandName}Copy.js`, err=>{ //This is the proof that windows sucks. Unlink only delete in linux.
             if (err) return console.error(chalk.bgRed("Error : ", err));
           });
+          console.log(chalk.blue('checking file : '+ commandName));
+  //
+
+          await delete require.cache[require.resolve(`./${commandName}.js`)];
+          await client.commands.delete(commandName);
+          const props = require(`./${commandName}.js`);
+          await client.commands.set(commandName, props);
+          console.log(chalk.green("Safly reloaded"));
           //console.log(chalk.green("deleted copy file"));
     }
 
@@ -69,13 +62,22 @@ async function CheckModule(commandName, client){
     });
       //console.log(chalk.green(`${commandName} was copied to ${commandName}Copy`));
 
-            await require(`./${commandName}Copy.js`);
+            await require(`../events/${commandName}Copy.js`);
           //  console.log(chalk.green("loaded file copy "));
-          await delete require.cache[require.resolve(`./${commandName}Copy.js`)];
+          await delete require.cache[require.resolve(`../events/${commandName}Copy.js`)];
         //  console.log(chalk.green("Unloaded file copy "));
           await fs.unlink(`./events/${commandName}Copy.js`, err=>{ //This is the proof that windows sucks. Unlink only delete in linux.
             if (err) return console.error(chalk.bgRed("Error : ", err));
           });
+          console.log(chalk.blue('checking file : '+ commandName));
+  //
+
+          await delete require.cache[require.resolve(`../events/${commandName}.js`)];
+          await client.events.delete(commandName);
+          const props = require(`../events/${commandName}.js`);
+          await client.events.set(commandName, props);
+          console.log(chalk.green("Safly reloaded"));
+
     }
   }
     catch(err){

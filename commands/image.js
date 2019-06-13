@@ -33,7 +33,7 @@ class GoogleImageSearch {
 }
 
 
-exports.run = async (message, client, args, terminal, unusedThing) =>{
+exports.run = async (message, client, args, terminal) =>{
       try{
         if (terminal)return console.log(chalk.yellow("No image while in terminal"));
         if (args.length === 0) {
@@ -42,20 +42,19 @@ exports.run = async (message, client, args, terminal, unusedThing) =>{
             return;
         }
         search = args.toString();
-        if (search.includes("<@")) {
+        if (search.includes("<@") || search.includes("<@&") || search.includes("<@!")) {
            await message.channel.send("FFS I SAID YOU CANT DO THAT, STAHP");
-           console.log(chalk.red(message.author.username)+ chalk.blue(" asked for an username in an image"));
+           console.log(chalk.blue(`[IMAGE] ${message.author.username}  asked for an username in an image`));
            await message.react("🖕");
            return;
          }
-        console.log(chalk.blue(message.author.username + " asked image ") + args.join(' '));
+        console.log(chalk.blue(`${message.author.username}  asked image ${args.join(' ')}`));
         await message.channel.send("Hey boi ez, plz wait a bit (until the next error)");
       }
       catch(err){
       console.error(chalk.bgRed("Error in Image : "), err);
     }
         await GoogleImageSearch.searchImage(args).then((res) => {
-            console.log(res[0]); // This will return array of image URLs
             message.channel.send('Here is what I have found : ', new Discord.Attachment(res[0], "Picture.png"));
         }).catch((err) => {
            console.error(chalk.bgRed(err));

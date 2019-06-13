@@ -13,9 +13,6 @@ client.commands = new Enmap();
 client.events = new Enmap();
 client.settings = new Enmap({name: "settings"});
 
-let oldClientPing=client.ping;
-
-
 
 const init = async () =>{
   try{
@@ -47,40 +44,6 @@ const init = async () =>{
       console.log(chalk.bgRed("error in init : ",err));
     }
 };
-
-
-
-    client.on('ready', async() => {
-      try{
-        console.log(chalk.cyan("It's alive ! "));
-        client.channels.get(settings.DevPlaceID).send('I\'m online !');
-    }
-      catch(err) {
-      console.log(chalk.bgRed("Error in app.js : Init : ", err));
-    }});
-
-
-
-
-
-
-client.on('message', async message => {
-    let nothing;
-    let terminal = false;
-    if (message.author.bot) return;
-    ping.BigPing(message, client);
-    ping.BotPing(message, client);
-
-        message.content = message.content.toLowerCase();
-        args = message.content.slice(settings.prefix.length).trim().split(/ +/g);
-        const calledCommand = args.shift();
-
-    if (!message.content.startsWith(settings.prefix)) return;
-
-    if(!client.commands.get(calledCommand)) return;
-
-    client.commands.get(calledCommand).run(message, client, args, terminal, nothing);
-});
 
 
 

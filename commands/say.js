@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const settings = require('../settings.json');
 const chalk = require('chalk');
 
-exports.run = async (message, client, args, terminal,unusedThing) => {
+exports.run = async (message, client, args, terminal) => {
   try{
     if (!terminal) return ;
     let place = args.shift();
