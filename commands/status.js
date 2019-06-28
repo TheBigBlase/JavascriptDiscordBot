@@ -9,6 +9,6 @@ let status = args.join(" ");
 })
   .catch(console.error);
 
-  if(terminal) console.log(chalk.green(`[STATUS] set to ${status}`));
+  if(terminal) console.log(chalk.green(`[STATUS] set to \"${status}\"`));
   if(!terminal) console.log(chalk.green(`[STATUS] set to ${status},requested by ${message.author.username}, in guild ${message.guild.name}`))
 };
