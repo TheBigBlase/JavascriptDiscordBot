@@ -14,7 +14,7 @@
     "discord.js": "^11.4.2",
     "enmap": "^4.8.1",
     "fs": "0.0.1-security",
-    "node-fetch": "^2.3.0",
+    "node-fetch": "^2.6.1",
     "node-google-image-search": "^1.0.3",
     "request": "^2.88.0",
     "resolve": "^1.10.0",
